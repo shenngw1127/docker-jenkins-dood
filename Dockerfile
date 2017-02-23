@@ -11,16 +11,15 @@
 FROM jenkins:2.32.2
 MAINTAINER Alejandro Ricoveri <alejandroricoveri@gmail.com>
 
-# install useful tools
-RUN apt-get update && \
-    apt-get -y install dos2unix \
-       --no-install-recommends && \
-    rm -rf /var/lib/apt/lists/*
-
 # Install necessary packages
 USER root
 RUN apt-get update \
       && apt-get install -y sudo supervisor \
+      && rm -rf /var/lib/apt/lists/*
+
+# install useful tools
+RUN apt-get update \      
+      && apt-get -y install dos2unix \
       && rm -rf /var/lib/apt/lists/*
 
 # Install docker-engine
