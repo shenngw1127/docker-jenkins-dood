@@ -8,7 +8,7 @@
 # * http://jpetazzo.github.io/2015/09/03/do-not-use-docker-in-docker-for-ci
 ###############################################################################
 
-FROM jenkins:2.46.2
+FROM jenkins:2.46.3
 MAINTAINER Alejandro Ricoveri <alejandroricoveri@gmail.com>
 
 # Install necessary packages
