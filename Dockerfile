@@ -28,7 +28,7 @@ RUN apt-get update \
 # "Former versions of this post advised to bind-mount the docker binary from
 # the host to the container. This is not reliable anymore, because the Docker
 # Engine is no longer distributed as (almost) static libraries."
-ARG docker_version=17.06.0~ce
+ARG docker_version=17.06.1~ce
 RUN curl -sSL https://get.docker.com/ | sh && \
     apt-get purge -y docker docker-engine docker.io && \
     apt-get install docker-ce=${docker_version}-0~debian
