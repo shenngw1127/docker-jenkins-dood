@@ -31,7 +31,7 @@ RUN apt-get update \
 ARG docker_version=17.06.2~ce
 RUN curl -sSL https://get.docker.com/ | sh && \
     apt-get purge -y docker docker-engine docker.io && \
-    apt-get install docker-ce=${docker_version}-0
+    apt-get install docker-ce=${docker_version}-0~debian
 #    apt-get install docker-ce=${docker_version}-0~debian-jessie
 
 # Make sure jenkins user has docker privileges
