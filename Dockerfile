@@ -29,10 +29,27 @@ RUN apt-get update \
 # the host to the container. This is not reliable anymore, because the Docker
 # Engine is no longer distributed as (almost) static libraries."
 ARG docker_version=17.06.2~ce
-RUN curl -sSL https://get.docker.com/ | sh && \
-    apt-get purge -y docker docker-engine docker.io && \
-    apt-get install docker-ce=${docker_version}-0~debian
-#    apt-get install docker-ce=${docker_version}-0~debian-jessie
+#RUN curl -sSL https://get.docker.com/ | sh && \
+#    apt-get purge -y docker docker-engine docker.io && \
+#    apt-get install docker-ce=${docker_version}-0~debian
+##    apt-get install docker-ce=${docker_version}-0~debian-jessie
+RUN apt-get purge -y docker docker-engine docker.io && \ 
+    apt-get update && \ 
+    apt-get install \
+      apt-transport-https \
+      ca-certificates \
+      curl \
+      gnupg2 \
+      software-properties-common && \
+    curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg | sudo apt-key add - && \
+    add-apt-repository \
+      "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") \
+      $(lsb_release -cs) \
+      stable"
+
+RUN apt-get update && \
+    apt-get install docker-ce \
+    && docker --version
 
 # Make sure jenkins user has docker privileges
 RUN usermod -aG docker jenkins
