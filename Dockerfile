@@ -33,7 +33,7 @@ ARG docker_version=17.06.2~ce
 #    apt-get purge -y docker docker-engine docker.io && \
 #    apt-get install docker-ce=${docker_version}-0~debian
 ##    apt-get install docker-ce=${docker_version}-0~debian-jessie
-RUN apt-get remove docker docker-engine docker.io && \ 
+RUN (apt-get purge -y docker docker-engine docker.io || true) && \ 
     apt-get update && \ 
     apt-get install \
       apt-transport-https \
@@ -48,7 +48,7 @@ RUN apt-get remove docker docker-engine docker.io && \
       stable"
 
 RUN apt-get update && \
-    apt-get install docker-ce && \
+    apt-get install docker-ce=${docker_version} && \
     docker --version
 
 # Make sure jenkins user has docker privileges
