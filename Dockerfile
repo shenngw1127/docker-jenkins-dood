@@ -33,14 +33,9 @@ ARG docker_version=17.06.2~ce
 #    apt-get purge -y docker docker-engine docker.io && \
 #    apt-get install docker-ce=${docker_version}-0~debian
 ##    apt-get install docker-ce=${docker_version}-0~debian-jessie
-RUN (apt-get purge -y docker docker-engine docker.io || true) && \ 
-    apt-get update && \ 
-    apt-get install \
-      apt-transport-https \
-      ca-certificates \
-      curl \
-      gnupg2 \
-      software-properties-common && \
+RUN (apt-get purge -y docker docker-engine docker.io || true) && \
+    apt-get update && \
+    apt-get install -y --no-install-recommends apt-transport-https ca-certificates curl gnupg2 software-properties-common && \
     curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg | sudo apt-key add - && \
     add-apt-repository \
       "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") \
