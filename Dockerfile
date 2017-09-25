@@ -35,7 +35,7 @@ ARG docker_version=17.06.2~ce
 ##    apt-get install docker-ce=${docker_version}-0~debian-jessie
 RUN (apt-get purge -y docker docker-engine docker.io || true) && \
     apt-get update && \
-    apt-get install -y --no-install-recommends apt-transport-https ca-certificates curl gnupg2 software-properties-common && \
+    apt-get install --no-install-recommends -y apt-transport-https ca-certificates curl gnupg2 software-properties-common && \
     curl -fsSL https://download.docker.com/linux/$(. /etc/os-release; echo "$ID")/gpg | sudo apt-key add - && \
     add-apt-repository \
       "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") \
@@ -43,7 +43,7 @@ RUN (apt-get purge -y docker docker-engine docker.io || true) && \
       stable"
 
 RUN apt-get update && \
-    apt-get install docker-ce=${docker_version} && \
+    apt-get install -y docker-ce=${docker_version}-0~debian && \
     docker --version
 
 # Make sure jenkins user has docker privileges
