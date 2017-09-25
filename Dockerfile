@@ -32,7 +32,6 @@ ARG docker_version=17.06.2~ce
 #RUN curl -sSL https://get.docker.com/ | sh && \
 #    apt-get purge -y docker docker-engine docker.io && \
 #    apt-get install docker-ce=${docker_version}-0~debian
-##    apt-get install docker-ce=${docker_version}-0~debian-jessie
 RUN (apt-get purge -y docker docker-engine docker.io || true) && \
     apt-get update && \
     apt-get install --no-install-recommends -y apt-transport-https ca-certificates curl gnupg2 software-properties-common && \
@@ -40,11 +39,9 @@ RUN (apt-get purge -y docker docker-engine docker.io || true) && \
     add-apt-repository \
       "deb [arch=amd64] https://download.docker.com/linux/$(. /etc/os-release; echo "$ID") \
       $(lsb_release -cs) \
-      stable"
-
-RUN apt-get update && \
-    apt-get install -y docker-ce=${docker_version}-0~debian && \
-    docker --version
+      stable" && \
+    apt-get update && \
+    apt-get install --no-install-recommends -y docker-ce=${docker_version}-0~debian
 
 # Make sure jenkins user has docker privileges
 RUN usermod -aG docker jenkins
